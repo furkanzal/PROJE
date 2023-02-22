@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OBSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ders">
+    <Key>
+      <PropertyRef Name="DersID" />
+    </Key>
+    <Property Name="DersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DersAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DersKredisi" Type="float" Nullable="false" />
+    <Property Name="DersAkts" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Not">
+    <Key>
+      <PropertyRef Name="NotID" />
+    </Key>
+    <Property Name="NotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OgrenciDersID" Type="int" Nullable="false" />
+    <Property Name="Vize" Type="int" />
+    <Property Name="Final" Type="int" />
+    <Property Name="Odev" Type="int" />
+  </EntityType>
+  <EntityType Name="Ogrenci">
+    <Key>
+      <PropertyRef Name="OgrenciID" />
+    </Key>
+    <Property Name="OgrenciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="No" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="11" />
+    <Property Name="TC" Type="nvarchar" MaxLength="11" />
+    <Property Name="DogumTarihi" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OgrenciDers">
+    <Key>
+      <PropertyRef Name="OgrenciDersID" />
+    </Key>
+    <Property Name="OgrenciDersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OgrenciID" Type="int" Nullable="false" />
+    <Property Name="DersID" Type="int" Nullable="false" />
+    <Property Name="DersAlmaZamani" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Not_OgrenciDers">
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="1" />
+    <End Role="Not" Type="Self.Not" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OgrenciDers">
+        <PropertyRef Name="OgrenciDersID" />
+      </Principal>
+      <Dependent Role="Not">
+        <PropertyRef Name="OgrenciDersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDers_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="OgrenciDers">
+        <PropertyRef Name="DersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDers_Ogrenci">
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogrenci">
+        <PropertyRef Name="OgrenciID" />
+      </Principal>
+      <Dependent Role="OgrenciDers">
+        <PropertyRef Name="OgrenciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OBSModelStoreContainer">
+    <EntitySet Name="Ders" EntityType="Self.Ders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Not" EntityType="Self.Not" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OgrenciDers" EntityType="Self.OgrenciDers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Not_OgrenciDers" Association="Self.FK_Not_OgrenciDers">
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+      <End Role="Not" EntitySet="Not" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDers_Ders" Association="Self.FK_OgrenciDers_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDers_Ogrenci" Association="Self.FK_OgrenciDers_Ogrenci">
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBSPR", "OBSPR.csproj", "{DA61B6D2-CDAA-4A43-AFAA-D4BD97E924F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "..\web\web.csproj", "{DCC28F98-262B-478B-A921-C730F959FC04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA61B6D2-CDAA-4A43-AFAA-D4BD97E924F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA61B6D2-CDAA-4A43-AFAA-D4BD97E924F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA61B6D2-CDAA-4A43-AFAA-D4BD97E924F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA61B6D2-CDAA-4A43-AFAA-D4BD97E924F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC28F98-262B-478B-A921-C730F959FC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC28F98-262B-478B-A921-C730F959FC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC28F98-262B-478B-A921-C730F959FC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC28F98-262B-478B-A921-C730F959FC04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {90C95E60-1609-4D92-9B8C-480BCDF71F4F}
+	EndGlobalSection
+EndGlobal

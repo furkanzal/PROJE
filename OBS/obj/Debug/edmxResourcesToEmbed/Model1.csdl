@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OBSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Ders">
+    <Key>
+      <PropertyRef Name="DersID" />
+    </Key>
+    <Property Name="DersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DersKredisi" Type="Double" Nullable="false" />
+    <Property Name="DersAkts" Type="Double" Nullable="false" />
+    <NavigationProperty Name="OgrenciDers" Relationship="Self.FK_OgrenciDers_Ders" FromRole="Ders" ToRole="OgrenciDers" />
+  </EntityType>
+  <EntityType Name="Not">
+    <Key>
+      <PropertyRef Name="NotID" />
+    </Key>
+    <Property Name="NotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OgrenciDersID" Type="Int32" Nullable="false" />
+    <Property Name="Vize" Type="Int32" />
+    <Property Name="Final" Type="Int32" />
+    <Property Name="Odev" Type="Int32" />
+    <NavigationProperty Name="OgrenciDers" Relationship="Self.FK_Not_OgrenciDers" FromRole="Not" ToRole="OgrenciDers" />
+  </EntityType>
+  <EntityType Name="Ogrenci">
+    <Key>
+      <PropertyRef Name="OgrenciID" />
+    </Key>
+    <Property Name="OgrenciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="No" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="TC" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="DogumTarihi" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="OgrenciDers" Relationship="Self.FK_OgrenciDers_Ogrenci" FromRole="Ogrenci" ToRole="OgrenciDers" />
+  </EntityType>
+  <EntityType Name="OgrenciDers">
+    <Key>
+      <PropertyRef Name="OgrenciDersID" />
+    </Key>
+    <Property Name="OgrenciDersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OgrenciID" Type="Int32" Nullable="false" />
+    <Property Name="DersID" Type="Int32" Nullable="false" />
+    <Property Name="DersAlmaZamani" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Ders" Relationship="Self.FK_OgrenciDers_Ders" FromRole="OgrenciDers" ToRole="Ders" />
+    <NavigationProperty Name="Not" Relationship="Self.FK_Not_OgrenciDers" FromRole="OgrenciDers" ToRole="Not" />
+    <NavigationProperty Name="Ogrenci" Relationship="Self.FK_OgrenciDers_Ogrenci" FromRole="OgrenciDers" ToRole="Ogrenci" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_OgrenciDers_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="DersID" />
+      </Principal>
+      <Dependent Role="OgrenciDers">
+        <PropertyRef Name="DersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Not_OgrenciDers">
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="1" />
+    <End Role="Not" Type="Self.Not" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OgrenciDers">
+        <PropertyRef Name="OgrenciDersID" />
+      </Principal>
+      <Dependent Role="Not">
+        <PropertyRef Name="OgrenciDersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDers_Ogrenci">
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+    <End Role="OgrenciDers" Type="Self.OgrenciDers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogrenci">
+        <PropertyRef Name="OgrenciID" />
+      </Principal>
+      <Dependent Role="OgrenciDers">
+        <PropertyRef Name="OgrenciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OBSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ders" EntityType="Self.Ders" />
+    <EntitySet Name="Not" EntityType="Self.Not" />
+    <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" />
+    <EntitySet Name="OgrenciDers" EntityType="Self.OgrenciDers" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_OgrenciDers_Ders" Association="Self.FK_OgrenciDers_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Not_OgrenciDers" Association="Self.FK_Not_OgrenciDers">
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+      <End Role="Not" EntitySet="Not" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDers_Ogrenci" Association="Self.FK_OgrenciDers_Ogrenci">
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+      <End Role="OgrenciDers" EntitySet="OgrenciDers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
